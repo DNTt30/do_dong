@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env.local
+.env.*.local
+out/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+.firebase/
+firebase-debug.log
+firestore-debug.log
