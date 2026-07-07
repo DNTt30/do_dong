@@ -87,7 +87,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', ...fontFamily.sans],
+        sans: ['var(--font-outfit)', ...fontFamily.sans],
         serif: ['var(--font-playfair)', ...fontFamily.serif],
       },
       borderRadius: {
@@ -114,6 +114,10 @@ const config: Config = {
         },
         shimmer: {
           '100%': { transform: 'translateX(100%)' },
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-10deg)' },
+          '50%': { transform: 'rotate(10deg)' },
         },
       },
       animation: {

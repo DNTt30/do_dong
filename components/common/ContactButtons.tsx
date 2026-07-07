@@ -10,47 +10,34 @@ import { Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSettings } from '@/hooks/useSettings';
 
+import { CONTACT_INFO } from '@/constants/contact';
+
 export default function ContactButtons() {
   const { settings } = useSettings();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (!settings) return null;
+  // Use settings from Supabase if available, fall back to constants
+  const phone = settings?.phone ?? CONTACT_INFO.phone;
+  const zaloPhone = settings?.zaloPhone ?? CONTACT_INFO.zalo;
 
   const buttons = [
     {
       id: 'phone',
       label: 'Gọi điện',
-      href: `tel:${settings.phone}`,
+      href: `tel:${phone}`,
       bgColor: 'bg-green-500 hover:bg-green-600',
       icon: <Phone size={20} />,
     },
-    settings.zaloPhone && {
+    {
       id: 'zalo',
       label: 'Chat Zalo',
-      href: `https://zalo.me/${settings.zaloPhone}`,
+      href: `https://zalo.me/${zaloPhone}`,
       bgColor: 'bg-blue-500 hover:bg-blue-600',
       icon: (
         <span className="text-sm font-bold leading-none">ZL</span>
       ),
     },
-    settings.messengerUrl && {
-      id: 'messenger',
-      label: 'Messenger',
-      href: settings.messengerUrl,
-      bgColor: 'bg-[#0099FF] hover:bg-blue-600',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
-          <path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z" />
-        </svg>
-      ),
-    },
-  ].filter(Boolean) as Array<{
-    id: string;
-    label: string;
-    href: string;
-    bgColor: string;
-    icon: React.ReactNode;
-  }>;
+  ];
 
   return (
     <div className="fixed bottom-6 right-4 z-40 flex flex-col items-end gap-3">
@@ -84,7 +71,7 @@ export default function ContactButtons() {
 
       {/* Main toggle / phone button */}
       <div className="flex items-center gap-2">
-        {!isExpanded && settings.phone && (
+        {!isExpanded && settings?.phone && (
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

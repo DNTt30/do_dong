@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Outfit, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { AppProviders } from '@/providers/AppProviders';
 import { SEO_DEFAULTS } from '@/constants/seo.constants';
 
-const inter = Inter({
-  subsets: ['vietnamese', 'latin'],
+const outfit = Outfit({
+  subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-inter',
+  variable: '--font-outfit',
   display: 'swap',
 });
 
@@ -49,15 +49,29 @@ export const metadata: Metadata = {
   },
 };
 
+import FloatingContact from '@/components/layout/FloatingContact';
+import { generateOrganizationJsonLd } from '@/utils/seo';
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgJsonLd = generateOrganizationJsonLd();
+
   return (
-    <html lang="vi" className={`${inter.variable} ${playfairDisplay.variable}`}>
+    <html lang="vi" className={`${outfit.variable} ${playfairDisplay.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+      </head>
       <body className="font-sans text-foreground bg-background antialiased">
-        <AppProviders>{children}</AppProviders>
+        <AppProviders>
+          {children}
+          <FloatingContact />
+        </AppProviders>
       </body>
     </html>
   );

@@ -14,9 +14,14 @@ import SectionTitle from '@/components/common/SectionTitle';
 import type { ProductFilter } from '@/types/product.types';
 import { ChevronDown, Loader2 } from 'lucide-react';
 
-export default function ProductListingClient() {
+interface ProductListingClientProps {
+  initialCategoryId?: string;
+}
+
+export default function ProductListingClient({ initialCategoryId }: ProductListingClientProps = {}) {
   const [filter, setFilter] = useState<ProductFilter>({
     published: true,
+    categoryId: initialCategoryId,
     sortBy: 'createdAt',
     sortDirection: 'desc',
   });
@@ -62,6 +67,7 @@ export default function ProductListingClient() {
           {/* Category filter */}
           <div className="relative">
             <select
+              value={filter.categoryId || ''}
               onChange={(e) => handleCategoryChange(e.target.value)}
               className="appearance-none pl-3 pr-8 py-2 rounded-lg border border-border bg-white text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer"
             >

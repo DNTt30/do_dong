@@ -21,6 +21,7 @@ export const MAIN_NAV: NavItem[] = [
     ],
   },
   { label: 'Tin tức', href: ROUTES.BLOG },
+  { label: 'Đặt hàng', href: ROUTES.ORDER },
   { label: 'Liên hệ', href: ROUTES.CONTACT },
 ];
 
@@ -34,6 +35,7 @@ export const FOOTER_LINKS = {
   ],
   lienKet: [
     { label: 'Giới thiệu', href: ROUTES.ABOUT },
+    { label: 'Đặt hàng', href: ROUTES.ORDER },
     { label: 'Tin tức', href: ROUTES.BLOG },
     { label: 'Liên hệ', href: ROUTES.CONTACT },
   ],

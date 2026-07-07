@@ -19,7 +19,7 @@ export default function FeaturedCategories() {
   const displayCategories = categories.length > 0 ? categories : MOCK_CATEGORIES;
 
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-16 md:py-24 bg-primary-50 border-b border-border/10">
       <div className="container max-w-7xl mx-auto px-4 md:px-8">
         <div className="text-center mb-16 md:mb-24">
           <motion.h2 

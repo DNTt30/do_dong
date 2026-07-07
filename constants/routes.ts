@@ -12,6 +12,7 @@ export const ROUTES = {
   BLOG: '/tin-tuc',
   BLOG_DETAIL: (slug: string) => `/tin-tuc/${slug}`,
   CONTACT: '/lien-he',
+  ORDER: '/dat-hang',
   SEARCH: '/tim-kiem',
 
   // Admin routes

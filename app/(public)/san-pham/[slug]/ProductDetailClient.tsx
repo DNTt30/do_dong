@@ -130,7 +130,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 </motion.div>
               )}
 
-              {/* Quy trình chế tác (Tĩnh mockup) */}
+              {/* Quy trình chế tác */}
               <motion.div 
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -138,13 +138,72 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 transition={{ duration: 0.8 }}
               >
                 <h2 className="text-3xl md:text-4xl font-serif text-black mb-10">Quy trình thủ công</h2>
-                <div className="grid grid-cols-1 gap-12">
-                  <div className="relative aspect-[16/9] bg-[#F5F5F7] rounded-3xl overflow-hidden">
-                    <Image src="/images/banner-default.jpg" alt="Quy trình đúc đồng" fill className="object-cover mix-blend-multiply opacity-80" />
-                  </div>
-                  <p className="text-xl md:text-2xl font-light text-center leading-relaxed text-black max-w-2xl mx-auto">
-                    Từng đường nét hoa văn đều được chạm khắc hoàn toàn bằng tay bởi những nghệ nhân có hơn 30 năm kinh nghiệm tại làng nghề Nam Định.
-                  </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                  {[
+                    { step: '01', title: 'Thiết kế & Đúc mẫu', desc: 'Vẽ phác thảo và tạo khuôn mẫu theo yêu cầu' },
+                    { step: '02', title: 'Đúc đồng', desc: 'Nấu chảy đồng ở nhiệt độ 1085°C và đổ khuôn' },
+                    { step: '03', title: 'Chạm khắc', desc: 'Tỉ mỉ từng hoa văn bằng tay nghệ nhân' },
+                    { step: '04', title: 'Hoàn thiện', desc: 'Mài bóng, tạo màu, kiểm định chất lượng' },
+                  ].map((item) => (
+                    <div key={item.step} className="bg-[#F5F5F7] rounded-2xl p-6 hover:shadow-lg transition-shadow">
+                      <div className="text-[#B8860B] text-sm font-bold mb-2 tracking-widest">{item.step}</div>
+                      <h3 className="text-xl font-semibold text-black mb-2">{item.title}</h3>
+                      <p className="text-gray-600 font-light">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-lg md:text-xl font-light text-center leading-relaxed text-gray-600 max-w-2xl mx-auto">
+                  Từng đường nét hoa văn đều được chạm khắc hoàn toàn bằng tay bởi những nghệ nhân có hơn 30 năm kinh nghiệm tại làng nghề Nam Định.
+                </p>
+              </motion.div>
+
+              {/* Testimonials / Đánh giá */}
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-serif text-black mb-10 text-center">Khách hàng nói gì</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    {
+                      name: 'Anh Minh Tuấn',
+                      location: 'Hà Nội',
+                      rating: 5,
+                      text: 'Sản phẩm đẹp, chất lượng đồng nguyên chất. Giao hàng cẩn thận, đóng gói rất kỹ. Rất hài lòng!'
+                    },
+                    {
+                      name: 'Chị Thu Hương',
+                      location: 'TP.HCM',
+                      rating: 5,
+                      text: 'Nghệ nhân nhiệt tình tư vấn, sản phẩm y như hình. Đặt lần 2 rồi, rất ưng ý!'
+                    },
+                    {
+                      name: 'Anh Đức Anh',
+                      location: 'Đà Nẵng',
+                      rating: 5,
+                      text: 'Chạm khắc tinh xảo, đồng bóng đẹp. Đặt hàng custom theo kích thước riêng cũng được.'
+                    },
+                  ].map((review, idx) => (
+                    <div key={idx} className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-[#B8860B]/30 transition-colors">
+                      <div className="flex items-center gap-1 mb-3">
+                        {Array.from({ length: review.rating }).map((_, i) => (
+                          <span key={i} className="text-[#B8860B] text-lg">★</span>
+                        ))}
+                      </div>
+                      <p className="text-gray-700 font-light leading-relaxed mb-4 italic">&ldquo;{review.text}&rdquo;</p>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-[#B8860B]/10 flex items-center justify-center text-[#B8860B] font-semibold">
+                          {review.name.charAt(0)}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-black">{review.name}</p>
+                          <p className="text-sm text-gray-400">{review.location}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 

@@ -74,6 +74,7 @@ CREATE TABLE orders (
   "totalAmount" NUMERIC NOT NULL,
   status TEXT DEFAULT 'pending', -- pending, processing, completed, cancelled
   "paymentMethod" TEXT DEFAULT 'cod',
+  source TEXT DEFAULT 'order_form', -- order_form, phone, zalo, etc.
   items JSONB NOT NULL,
   "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW()

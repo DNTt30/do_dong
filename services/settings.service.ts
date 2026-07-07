@@ -16,7 +16,8 @@ const DOCUMENT_ID = 'main';
 export async function getSettings(): Promise<SiteSettings | null> {
   const { data, error } = await supabase.from(TABLE).select('value').eq('id', DOCUMENT_ID).single();
   if (error) {
-    if (error.code === 'PGRST116') return null;
+    if (error.code === 'PGRST116' || error.code === '42P01') return null;
+    console.error('getSettings error:', error);
     throw error;
   }
   return data.value as SiteSettings;

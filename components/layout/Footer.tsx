@@ -17,13 +17,13 @@ export default async function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary text-white">
+    <footer className="bg-secondary text-white border-t border-border/10">
       {/* Main footer */}
       <div className="container py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1: Brand */}
           <div className="lg:col-span-1">
-            <Link href={ROUTES.HOME} className="block mb-4">
+            <Link href={ROUTES.HOME} className="block mb-6">
               {settings?.logo ? (
                 <Image
                   src={settings.logo}
@@ -34,14 +34,14 @@ export default async function Footer() {
                 />
               ) : (
                 <div>
-                  <div className="font-serif text-2xl font-bold text-white">Đồ Đồng</div>
-                  <div className="text-secondary text-sm font-medium tracking-widest uppercase">
+                  <div className="font-serif text-3xl font-bold text-primary">Đồ Đồng</div>
+                  <div className="text-white text-sm font-medium tracking-[0.2em] uppercase mt-1">
                     Nam Định
                   </div>
                 </div>
               )}
             </Link>
-            <p className="text-primary-100 text-sm leading-relaxed mb-6">
+            <p className="text-white/70 text-sm leading-relaxed mb-6">
               {settings?.aboutText ??
                 'Chuyên sản xuất đồ đồng thủ công truyền thống làng nghề Nam Định. Cam kết chất lượng, uy tín và giá tốt nhất.'}
             </p>
@@ -53,7 +53,7 @@ export default async function Footer() {
                   href={settings.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-secondary flex items-center justify-center transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300"
                   aria-label="Facebook"
                 >
                   <Facebook size={18} />
@@ -64,7 +64,7 @@ export default async function Footer() {
                   href={settings.zalo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-secondary flex items-center justify-center transition-colors text-xs font-bold"
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-primary flex items-center justify-center transition-all duration-300 text-xs font-bold"
                   aria-label="Zalo"
                 >
                   ZL
@@ -75,7 +75,7 @@ export default async function Footer() {
                   href={settings.youtube}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-red-500 flex items-center justify-center transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-red-600 flex items-center justify-center transition-all duration-300"
                   aria-label="YouTube"
                 >
                   <span className="text-xs font-bold">YT</span>
@@ -86,13 +86,13 @@ export default async function Footer() {
 
           {/* Column 2: Products */}
           <div>
-            <h3 className="font-semibold text-base mb-4 text-secondary">Sản phẩm</h3>
-            <ul className="space-y-2">
+            <h3 className="font-serif text-lg font-semibold mb-6 text-primary">Sản phẩm</h3>
+            <ul className="space-y-3">
               {FOOTER_LINKS.sanPham.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-primary-100 hover:text-white text-sm transition-colors"
+                    className="text-white/70 hover:text-primary text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -103,13 +103,13 @@ export default async function Footer() {
 
           {/* Column 3: Quick links */}
           <div>
-            <h3 className="font-semibold text-base mb-4 text-secondary">Liên kết</h3>
-            <ul className="space-y-2">
+            <h3 className="font-serif text-lg font-semibold mb-6 text-primary">Liên kết</h3>
+            <ul className="space-y-3">
               {FOOTER_LINKS.lienKet.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-primary-100 hover:text-white text-sm transition-colors"
+                    className="text-white/70 hover:text-primary text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -120,16 +120,18 @@ export default async function Footer() {
 
           {/* Column 4: Contact */}
           <div>
-            <h3 className="font-semibold text-base mb-4 text-secondary">Liên hệ</h3>
-            <ul className="space-y-3">
+            <h3 className="font-serif text-lg font-semibold mb-6 text-primary">Liên hệ</h3>
+            <ul className="space-y-4">
               {settings?.phone && (
                 <li>
                   <a
                     href={`tel:${settings.phone}`}
-                    className="flex items-start gap-2 text-sm text-primary-100 hover:text-white transition-colors"
+                    className="flex items-start gap-3 text-sm text-white/70 hover:text-primary transition-colors group"
                   >
-                    <Phone size={16} className="shrink-0 mt-0.5 text-secondary" />
-                    <span>{settings.phone}</span>
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 shrink-0">
+                      <Phone size={14} className="text-primary" />
+                    </div>
+                    <span className="mt-1.5">{settings.phone}</span>
                   </a>
                 </li>
               )}
@@ -137,24 +139,23 @@ export default async function Footer() {
                 <li>
                   <a
                     href={`mailto:${settings.email}`}
-                    className="flex items-start gap-2 text-sm text-primary-100 hover:text-white transition-colors"
+                    className="flex items-start gap-3 text-sm text-white/70 hover:text-primary transition-colors group"
                   >
-                    <Mail size={16} className="shrink-0 mt-0.5 text-secondary" />
-                    <span>{settings.email}</span>
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 shrink-0">
+                      <Mail size={14} className="text-primary" />
+                    </div>
+                    <span className="mt-1.5">{settings.email}</span>
                   </a>
                 </li>
               )}
               {settings?.address && (
                 <li>
-                  <div className="flex items-start gap-2 text-sm text-primary-100">
-                    <MapPin size={16} className="shrink-0 mt-0.5 text-secondary" />
-                    <span>{settings.address}</span>
+                  <div className="flex items-start gap-3 text-sm text-white/70">
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                      <MapPin size={14} className="text-primary" />
+                    </div>
+                    <span className="mt-1.5 leading-relaxed">{settings.address}</span>
                   </div>
-                </li>
-              )}
-              {settings?.workingHours && (
-                <li className="text-sm text-primary-100">
-                  🕐 {settings.workingHours}
                 </li>
               )}
             </ul>
@@ -163,10 +164,10 @@ export default async function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-primary-100">
+      <div className="border-t border-white/10 bg-black/20">
+        <div className="container py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
           <p>© {currentYear} {settings?.companyName ?? 'Đồ Đồng Nam Định'}. Tất cả quyền được bảo lưu.</p>
-          <p>Thiết kế bởi <span className="text-secondary">Web Nam Định</span></p>
+          <p>Thiết kế bởi <span className="text-primary">Web Nam Định</span></p>
         </div>
       </div>
     </footer>

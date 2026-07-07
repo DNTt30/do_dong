@@ -5,7 +5,7 @@
 import React, { type ReactNode } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import ContactButtons from '@/components/common/ContactButtons';
+import FloatingCTA from '@/components/common/FloatingCTA';
 import BackToTop from '@/components/common/BackToTop';
 
 interface PublicLayoutProps {
@@ -18,7 +18,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-      <ContactButtons />
+      <FloatingCTA />
       <BackToTop />
     </div>
   );
