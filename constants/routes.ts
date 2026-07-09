@@ -13,12 +13,21 @@ export const ROUTES = {
   BLOG_DETAIL: (slug: string) => `/tin-tuc/${slug}`,
   CONTACT: '/lien-he',
   ORDER: '/dat-hang',
+  ORDER_TRACKING: '/tra-cuu-don-hang',
   SEARCH: '/tim-kiem',
+
+  // Auth routes for customers
+  AUTH: {
+    LOGIN: '/dang-nhap',
+    REGISTER: '/dang-ky',
+  },
 
   // Admin routes
   ADMIN: {
     LOGIN: '/admin/login',
     DASHBOARD: '/admin/dashboard',
+    CONTACTS: '/admin/lien-he',
+    ORDERS: '/admin/don-hang',
     PRODUCTS: '/admin/san-pham',
     PRODUCT_NEW: '/admin/san-pham/them-moi',
     PRODUCT_EDIT: (id: string) => `/admin/san-pham/${id}`,

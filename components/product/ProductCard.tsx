@@ -82,7 +82,11 @@ export default function ProductCard({ product, index = 0, className }: ProductCa
 
           {/* Price */}
           <div className="flex items-center gap-2 justify-center mb-3">
-            {product.salePrice ? (
+            {product.contactForPrice || !product.price || product.price === 0 ? (
+              <span className="text-base font-semibold text-[#B8860B]">
+                Giá: Liên hệ
+              </span>
+            ) : product.salePrice ? (
               <>
                 <span className="text-base font-semibold text-black">
                   {formatPrice(product.salePrice)}

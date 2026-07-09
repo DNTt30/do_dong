@@ -68,7 +68,7 @@ export default function ArtisanBehindTheScenes() {
               Đằng Sau Một Tác Phẩm
             </h2>
             <p className="text-neutral-600 text-lg mb-12 leading-relaxed">
-              Không có máy móc sản xuất hàng loạt, không có đường tắt. Mỗi món đồ đều phải trải qua hàng trăm giờ lao động miệt mài, đánh đổi bằng mồ hôi và cả những vết chai sạn trên đôi tay. Nhưng đó là cách duy nhất để tạo ra một món đồ "có hồn".
+              Không có máy móc sản xuất hàng loạt, không có đường tắt. Mỗi món đồ đều phải trải qua hàng trăm giờ lao động miệt mài, đánh đổi bằng mồ hôi và cả những vết chai sạn trên đôi tay. Nhưng đó là cách duy nhất để tạo ra một món đồ &quot;có hồn&quot;.
             </p>
 
             <div className="space-y-12">

@@ -66,7 +66,7 @@ export default function ArtisanHero() {
             variants={itemVariants}
             className="text-lg md:text-xl text-neutral-700 mb-12 leading-relaxed font-light max-w-2xl mx-auto"
           >
-            "Chào bạn, mình chế tác đồ đồng tại nhà ở Nam Định. Từ những khối đồng thô ráp, qua hàng vạn nhát búa và sự tỉ mỉ của kỹ thuật khảm, mình mong muốn mang đến những tác phẩm mang đậm dấu ấn cá nhân."
+            &quot;Chào bạn, mình chế tác đồ đồng tại nhà ở Nam Định. Từ những khối đồng thô ráp, qua hàng vạn nhát búa và sự tỉ mỉ của kỹ thuật khảm, mình mong muốn mang đến những tác phẩm mang đậm dấu ấn cá nhân.&quot;
           </motion.p>
           <motion.div 
             variants={itemVariants}

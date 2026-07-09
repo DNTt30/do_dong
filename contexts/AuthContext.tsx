@@ -7,13 +7,14 @@
 
 import React, { createContext, useEffect, useState, type ReactNode } from 'react';
 import type { User } from '@supabase/supabase-js';
-import { onAuthChange, signInWithEmail, signOut, checkAdminRole } from '@/lib/auth';
+import { onAuthChange, signInWithEmail, signUpWithEmail, signOut, checkAdminRole } from '@/lib/auth';
 
 interface AuthContextValue {
   user: User | null;
   isAdmin: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, metadata: { name: string; phone: string }) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -49,13 +50,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await signInWithEmail(email, password);
   };
 
+  const register = async (email: string, password: string, metadata: { name: string; phone: string }): Promise<void> => {
+    await signUpWithEmail(email, password, metadata);
+  };
+
   const logout = async (): Promise<void> => {
     await signOut();
     setIsAdmin(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAdmin, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isAdmin, isLoading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

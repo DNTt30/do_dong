@@ -9,7 +9,7 @@ import React, { type ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  LayoutDashboard,
+  BarChart2,
   Package,
   Tag,
   FileText,
@@ -18,6 +18,9 @@ import {
   LogOut,
   Menu,
   X,
+  Hammer,
+  ClipboardList,
+  Users,
 } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,8 +29,10 @@ import { ROUTES } from '@/constants/routes';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
-  { label: 'Dashboard', href: ROUTES.ADMIN.DASHBOARD, icon: LayoutDashboard },
-  { label: 'Sản phẩm', href: ROUTES.ADMIN.PRODUCTS, icon: Package },
+  { label: 'Dashboard', href: ROUTES.ADMIN.DASHBOARD, icon: BarChart2 },
+  { label: 'Khách hàng', href: ROUTES.ADMIN.CONTACTS, icon: Users },
+  { label: 'Sản phẩm', href: ROUTES.ADMIN.PRODUCTS, icon: Hammer },
+  { label: 'Đơn hàng', href: ROUTES.ADMIN.ORDERS, icon: ClipboardList },
   { label: 'Danh mục', href: ROUTES.ADMIN.CATEGORIES, icon: Tag },
   { label: 'Bài viết', href: ROUTES.ADMIN.BLOGS, icon: FileText },
   { label: 'Banner', href: ROUTES.ADMIN.BANNERS, icon: ImageIcon },

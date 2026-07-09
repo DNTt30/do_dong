@@ -6,7 +6,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { MessageCircle, Phone, Truck, ShieldCheck } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { MessageCircle, Phone, Truck, ShieldCheck, ShoppingCart, Plus, Minus, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Product } from '@/types/product.types';
 import { useSettings } from '@/hooks/useSettings';
@@ -18,6 +19,10 @@ interface ProductDetailClientProps {
 
 export default function ProductDetailClient({ product }: ProductDetailClientProps) {
   const { settings } = useSettings();
+  const router = useRouter();
+  const [quantity, setQuantity] = React.useState(1);
+
+  const isContactOnly = product.contactForPrice || !product.price || product.price === 0;
 
   const specs = [
     { label: 'Chất liệu', value: product.material },
@@ -71,12 +76,60 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               </p>
 
               <div className="text-3xl md:text-4xl font-semibold text-black mb-10">
-                {product.salePrice ? formatPrice(product.salePrice) : formatPrice(product.price)}
+                {product.contactForPrice || !product.price || product.price === 0
+                  ? 'Giá: Liên hệ báo giá'
+                  : product.salePrice
+                    ? formatPrice(product.salePrice)
+                    : formatPrice(product.price)}
               </div>
 
-              {/* Mobile CTA (Hidden on Desktop, as Desktop has Sticky Sidebar) */}
-              <div className="flex w-full flex-col gap-4 md:hidden">
-                <a href={`tel:${settings?.phone}`} className="w-full bg-black text-white rounded-full py-4 text-lg font-medium flex justify-center items-center gap-2">
+              {/* Quantity & Actions (Desktop) */}
+              <div className="hidden md:flex flex-col gap-6 w-full max-w-md">
+                {!isContactOnly && (
+                  <div className="flex items-center gap-4 border border-gray-200 rounded-full w-fit p-1 bg-white">
+                    <button 
+                      onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                      className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition text-black"
+                    >
+                      <Minus size={16} />
+                    </button>
+                    <span className="w-12 text-center font-semibold text-lg text-black">{quantity}</span>
+                    <button 
+                      onClick={() => setQuantity(q => q + 1)}
+                      className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition text-black"
+                    >
+                      <Plus size={16} />
+                    </button>
+                  </div>
+                )}
+
+                <div className="flex gap-4">
+                  {isContactOnly ? (
+                    <a href={`tel:${settings?.phone}`} className="flex-1 bg-black text-white rounded-full py-4 text-lg font-medium flex justify-center items-center gap-2 hover:bg-gray-800 transition-colors">
+                      <Phone size={20} /> Gọi tư vấn ngay
+                    </a>
+                  ) : (
+                    <button 
+                      onClick={() => router.push(`/dat-hang?product=${product.slug}&qty=${quantity}`)}
+                      className="flex-1 bg-black text-white rounded-full py-4 text-lg font-medium flex justify-center items-center gap-2 hover:bg-gray-800 transition-colors shadow-xl shadow-black/20"
+                    >
+                      <ShoppingCart size={20} /> Mua hàng ngay
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Mobile CTA (Sticky on bottom in real app, but here inline) */}
+              <div className="flex w-full flex-col gap-4 md:hidden mt-6">
+                {!isContactOnly && (
+                  <button 
+                    onClick={() => router.push(`/dat-hang?product=${product.slug}&qty=${quantity}`)}
+                    className="w-full bg-black text-white rounded-full py-4 text-lg font-medium flex justify-center items-center gap-2 shadow-xl shadow-black/20"
+                  >
+                    <ShoppingCart size={20} /> Mua hàng ngay
+                  </button>
+                )}
+                <a href={`tel:${settings?.phone}`} className={`w-full bg-black text-white rounded-full py-4 text-lg font-medium flex justify-center items-center gap-2 ${!isContactOnly ? 'hidden' : ''}`}>
                   <Phone size={20} /> Gọi tư vấn ngay
                 </a>
                 <a href={`https://zalo.me/${settings?.zaloPhone}`} target="_blank" rel="noreferrer" className="w-full bg-[#0068FF] text-white rounded-full py-4 text-lg font-medium flex justify-center items-center gap-2">
@@ -204,6 +257,52 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                       </div>
                     </div>
                   ))}
+                </div>
+              </motion.div>
+
+              {/* Hướng dẫn bảo quản đồ đồng */}
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="bg-[#1a1209] rounded-3xl p-8 md:p-12 text-white relative overflow-hidden mt-12 mb-20"
+              >
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#B8860B] rounded-full blur-[120px] opacity-20 -mr-20 -mt-20 pointer-events-none"></div>
+                <h2 className="text-2xl md:text-3xl font-serif text-[#B8860B] mb-8 flex items-center gap-3">
+                  <Info size={28} /> Hướng dẫn bảo quản & Bài trí
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                  <div>
+                    <h3 className="text-xl font-medium mb-3 text-white">Cách làm sạch & Bảo quản</h3>
+                    <ul className="space-y-3 text-white/70 font-light">
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#B8860B] mt-2 shrink-0"></div>
+                        Lau chùi định kỳ bằng khăn mềm, khô để tránh xước bề mặt.
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#B8860B] mt-2 shrink-0"></div>
+                        Tuyệt đối KHÔNG dùng hóa chất tẩy rửa mạnh, axit, bối sắt chà xát.
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#B8860B] mt-2 shrink-0"></div>
+                        Đối với đồng mộc, nếu có dấu hiệu xuống màu tự nhiên, có thể dùng chanh hoặc giấm loãng lau nhẹ, sau đó lau sạch lại bằng khăn khô.
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-medium mb-3 text-white">Quy tắc bài trí chuẩn phong thủy</h3>
+                    <ul className="space-y-3 text-white/70 font-light">
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#B8860B] mt-2 shrink-0"></div>
+                        Nên đặt đồ đồng tại không gian trang trọng, sạch sẽ, cao ráo (như bàn thờ, tủ kệ trưng bày, phòng khách, phòng làm việc).
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#B8860B] mt-2 shrink-0"></div>
+                        Tránh đặt sản phẩm trực tiếp dưới ánh nắng gắt liên tục hoặc nơi có độ ẩm quá cao để duy trì tuổi thọ màu sắc.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </motion.div>
 

@@ -9,18 +9,17 @@ import type { PaginatedResult } from '@/types/common.types';
 const TABLE = 'orders';
 
 /**
- * Submit a contact form inquiry (creates a new order with 'pending' status).
+ * Submit a contact form inquiry (creates a new entry in 'contacts' table).
  */
 export async function submitContactForm(data: ContactFormData): Promise<string> {
-  const orderData: Omit<Order, 'id' | 'createdAt' | 'updatedAt'> = {
-    customerName: data.name,
-    customerPhone: data.phone,
-    customerEmail: data.email,
-    message: data.message,
-    status: 'pending',
-    source: 'contact_form',
+  const contactData = {
+    name: data.name,
+    phone: data.phone,
+    email: data.email,
+    note: data.message,
+    status: 'new',
   };
-  const { data: inserted, error } = await supabase.from(TABLE).insert([orderData]).select('id').single();
+  const { data: inserted, error } = await supabase.from('contacts').insert([contactData]).select('id').single();
   if (error) throw error;
   return inserted.id;
 }

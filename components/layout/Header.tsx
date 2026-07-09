@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MAIN_NAV } from '@/constants/navigation';
 import { ROUTES } from '@/constants/routes';
 import { useSettings } from '@/hooks/useSettings';
+import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
 import MobileMenu from './MobileMenu';
 import SearchBar from './SearchBar';
@@ -21,7 +22,9 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
   const { settings } = useSettings();
+  const { user, isAdmin, logout } = useAuth();
 
   // Detect scroll for sticky header styling
   useEffect(() => {
@@ -149,6 +152,68 @@ export default function Header() {
               >
                 <Search size={20} />
               </button>
+
+              {/* User Auth Desktop */}
+              <div className="hidden lg:block relative">
+                {user ? (
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsUserDropdownOpen(true)}
+                    onMouseLeave={() => setIsUserDropdownOpen(false)}
+                  >
+                    <button className="flex items-center gap-2 p-2 rounded-md hover:bg-primary/5 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-gradient-bronze text-white text-xs font-bold flex items-center justify-center">
+                        {user.user_metadata?.name?.charAt(0).toUpperCase() || user.email?.charAt(0).toUpperCase()}
+                      </div>
+                    </button>
+                    
+                    <AnimatePresence>
+                      {isUserDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-card border border-border/50 py-1 overflow-hidden"
+                        >
+                          <div className="px-4 py-2 text-xs text-muted-foreground border-b border-border/50 truncate">
+                            {user.user_metadata?.name || user.email}
+                          </div>
+                          {isAdmin && (
+                            <Link
+                              href={ROUTES.ADMIN.DASHBOARD}
+                              className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-primary/5 transition-colors border-b border-border/50"
+                            >
+                              Trang Quản trị
+                            </Link>
+                          )}
+                          <button
+                            onClick={() => logout()}
+                            className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                          >
+                            Đăng xuất
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 ml-2">
+                    <Link
+                      href={ROUTES.AUTH.LOGIN}
+                      className="text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1"
+                    >
+                      Đăng nhập
+                    </Link>
+                    <Link
+                      href={ROUTES.AUTH.REGISTER}
+                      className="text-sm font-medium bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors px-3 py-1.5 rounded-md"
+                    >
+                      Đăng ký
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               {/* Phone (mobile) */}
               {settings?.phone && (

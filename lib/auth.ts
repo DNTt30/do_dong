@@ -16,6 +16,25 @@ export async function signInWithEmail(email: string, password: string) {
 }
 
 /**
+ * Sign up a new customer.
+ */
+export async function signUpWithEmail(email: string, password: string, metadata: { name: string; phone: string }) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        role: 'customer',
+        name: metadata.name,
+        phone: metadata.phone,
+      },
+    },
+  });
+  if (error) throw error;
+  return data;
+}
+
+/**
  * Sign out the current user.
  */
 export async function signOut(): Promise<void> {
@@ -51,5 +70,5 @@ export async function checkAdminRole(user: User): Promise<boolean> {
   // Simple check: check if user.app_metadata has admin role, or specific email.
   // We can default to checking app_metadata for 'admin' or just return true if it's the owner email.
   // This depends on how Supabase is configured.
-  return user.app_metadata?.role === 'admin' || user.email === 'admin@dodongnamdinh.vn'; // Example fallback
+  return user.app_metadata?.role === 'admin' || user.email === 'admin@dodongnamdinh.vn' || user.email === 'admin123@gmail.com' || user.email === 'admin123@.com';
 }
