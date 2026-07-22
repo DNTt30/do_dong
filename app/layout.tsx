@@ -50,6 +50,7 @@ export const metadata: Metadata = {
 };
 
 import FloatingContact from '@/components/layout/FloatingContact';
+import Analytics from '@/components/common/Analytics';
 import { generateOrganizationJsonLd } from '@/utils/seo';
 
 export default function RootLayout({
@@ -61,13 +62,12 @@ export default function RootLayout({
 
   return (
     <html lang="vi" className={`${outfit.variable} ${playfairDisplay.variable}`}>
-      <head>
+      <body className="font-sans text-foreground bg-background antialiased">
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-      </head>
-      <body className="font-sans text-foreground bg-background antialiased">
         <AppProviders>
           {children}
           <FloatingContact />

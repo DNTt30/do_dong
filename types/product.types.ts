@@ -23,6 +23,7 @@ export interface Product {
   images: string[];         // Array of download URLs
   imagePaths?: string[];    // Array of Storage paths (for deletion)
   video?: string;
+  contactForPrice?: boolean;
   featured: boolean;
   published: boolean;
   seoTitle?: string;

@@ -209,7 +209,7 @@ export default function AdminDashboardPage() {
                   dx={-10}
                 />
                 <Tooltip 
-                  formatter={(value: number) => [`${value.toLocaleString('vi-VN')} ₫`, 'Doanh thu']}
+                  formatter={(value: number | string | undefined | any) => [`${Number(value || 0).toLocaleString('vi-VN')} ₫`, 'Doanh thu']}
                   labelStyle={{ color: '#1f2937', fontWeight: 'bold', marginBottom: '8px' }}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   cursor={{ fill: '#f3f4f6' }}
@@ -243,7 +243,7 @@ export default function AdminDashboardPage() {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value: number) => [value, 'Đơn hàng']}
+                    formatter={(value: any) => [value, 'Đơn hàng']}
                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   />
                   <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>

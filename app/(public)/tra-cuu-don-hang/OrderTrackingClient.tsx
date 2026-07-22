@@ -57,15 +57,16 @@ export default function OrderTrackingClient() {
     setHasSearched(true);
     
     try {
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('customerPhone', phoneNumber.trim())
-        .order('createdAt', { ascending: false });
-
-      if (error) throw error;
+      const response = await fetch(`/api/orders/track?phone=${encodeURIComponent(phoneNumber.trim())}`);
       
-      const fetchedOrders = data || [];
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error('Bạn thao tác quá nhanh, vui lòng thử lại sau 1 phút.');
+        }
+        throw new Error('Lỗi khi tải danh sách đơn hàng');
+      }
+
+      const fetchedOrders = await response.json();
       setOrders(fetchedOrders);
       setCurrentPage(1); // Reset page to 1
       
@@ -74,9 +75,9 @@ export default function OrderTrackingClient() {
       } else {
         setShowSearchForm(false);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching orders:', err);
-      toast.error('Lỗi khi tải danh sách đơn hàng');
+      toast.error(err.message || 'Lỗi khi tải danh sách đơn hàng');
     } finally {
       setIsLoading(false);
     }
@@ -109,27 +110,7 @@ export default function OrderTrackingClient() {
     }
   };
 
-  const handleSaveAddress = async (orderId: string) => {
-    if (!editingAddressValue.trim()) return;
-    
-    setIsLoading(true);
-    try {
-      const { error } = await supabase
-        .from('orders')
-        .update({ customerAddress: editingAddressValue.trim() })
-        .eq('id', orderId);
-        
-      if (error) throw error;
-      setOrders(orders.map(o => o.id === orderId ? { ...o, customerAddress: editingAddressValue.trim() } : o));
-      toast.success('Cập nhật địa chỉ nhận hàng thành công.');
-      setEditingOrderId(null);
-    } catch (err) {
-      console.error(err);
-      toast.error('Có lỗi xảy ra khi cập nhật địa chỉ.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // handleSaveAddress removed for security reasons (Phase 1)
 
   if (isLoading && !hasSearched) {
     return (
@@ -275,46 +256,10 @@ export default function OrderTrackingClient() {
                         <div className="flex-1 text-sm text-gray-600 space-y-2">
                           <p><strong className="text-black">Người nhận:</strong> {order.customerName}</p>
                           
-                          {editingOrderId === order.id ? (
-                            <div className="flex flex-col gap-2 w-full max-w-lg mt-2">
-                              <textarea
-                                value={editingAddressValue}
-                                onChange={(e) => setEditingAddressValue(e.target.value)}
-                                className="w-full px-4 py-3 text-sm border border-neutral-300 rounded-xl focus:ring-1 focus:ring-[#B8860B] focus:border-[#B8860B] outline-none transition resize-none h-20 text-black bg-white"
-                                placeholder="Nhập địa chỉ nhận hàng mới..."
-                              />
-                              <div className="flex gap-2">
-                                <button
-                                  onClick={() => handleSaveAddress(order.id)}
-                                  disabled={isLoading || !editingAddressValue.trim()}
-                                  className="px-4 py-2 bg-black text-white text-xs font-bold rounded-lg hover:bg-neutral-800 disabled:opacity-50 transition shadow-sm"
-                                >
-                                  Lưu
-                                </button>
-                                <button
-                                  onClick={() => setEditingOrderId(null)}
-                                  className="px-4 py-2 bg-neutral-100 text-neutral-600 text-xs font-bold rounded-lg hover:bg-neutral-200 transition"
-                                >
-                                  Hủy
-                                </button>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="flex items-start gap-2">
-                              <p><strong className="text-black">Giao đến:</strong> {order.customerAddress}</p>
-                              {isPending && (
-                                <button 
-                                  onClick={() => {
-                                    setEditingOrderId(order.id);
-                                    setEditingAddressValue(order.customerAddress);
-                                  }}
-                                  className="text-[#B8860B] hover:text-[#9a7009] flex items-center gap-1 shrink-0 bg-[#B8860B]/10 px-2.5 py-1 rounded text-xs font-semibold"
-                                >
-                                  <Edit3 size={12} /> Sửa
-                                </button>
-                              )}
-                            </div>
-                          )}
+                          <div className="flex items-start gap-2">
+                            <p><strong className="text-black">Giao đến:</strong> {order.customerAddress}</p>
+                            {/* Chức năng sửa địa chỉ tạm khoá ở Phase 1 */}
+                          </div>
                         </div>
                         <div className="text-right flex flex-col items-end">
                           <p className="text-gray-500 mb-1">Tổng tiền thanh toán</p>

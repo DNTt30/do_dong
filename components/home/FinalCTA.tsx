@@ -42,7 +42,7 @@ export default function FinalCTA() {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-600 transition-all duration-300 hover:scale-105 shadow-[0_4px_20px_rgba(184,134,11,0.4)]"
             >
               <Phone size={20} className="animate-pulse" />
-              Gọi {CONTACT_INFO.phoneFormatted || CONTACT_INFO.phone}
+              Gọi {CONTACT_INFO.phoneDisplay || CONTACT_INFO.phone}
             </a>
             
             <Link

@@ -12,6 +12,7 @@ import { Phone, Mail, MapPin, Clock, Send, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { contactSchema, type ContactSchema } from '@/utils/validators';
 import { submitContactForm } from '@/services/order.service';
+import DOMPurify from 'isomorphic-dompurify';
 import { useSettings } from '@/hooks/useSettings';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import SectionTitle from '@/components/common/SectionTitle';
@@ -270,7 +271,7 @@ export default function ContactPageClient() {
             <h2 className="font-serif text-xl font-semibold text-foreground mb-6">Bản đồ</h2>
             <div
               className="rounded-2xl overflow-hidden border border-border h-96"
-              dangerouslySetInnerHTML={{ __html: settings.googleMapEmbed }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(settings.googleMapEmbed, { ADD_TAGS: ['iframe'], ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] }) }}
             />
           </div>
         )}

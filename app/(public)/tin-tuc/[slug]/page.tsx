@@ -10,6 +10,7 @@ import { getBlogBySlug } from '@/services/blog.service';
 import { generatePageMetadata, generateArticleJsonLd } from '@/utils/seo';
 import Breadcrumb from '@/components/common/Breadcrumb';
 import { formatDate } from '@/utils/format';
+import DOMPurify from 'isomorphic-dompurify';
 import { ROUTES } from '@/constants/routes';
 
 interface BlogDetailPageProps {
@@ -94,7 +95,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
           {/* Content */}
           <div
             className="prose prose-base md:prose-lg max-w-none prose-headings:font-serif prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-relaxed prose-a:text-primary prose-img:rounded-xl"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
           />
         </article>
       </div>

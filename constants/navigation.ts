@@ -13,30 +13,45 @@ export const MAIN_NAV: NavItem[] = [
     href: ROUTES.PRODUCTS,
     children: [
       { label: 'Tất cả sản phẩm', href: ROUTES.PRODUCTS },
-      { label: 'Lư đồng', href: ROUTES.CATEGORY('lu-dong') },
-      { label: 'Đỉnh đồng', href: ROUTES.CATEGORY('dinh-dong') },
-      { label: 'Chuông đồng', href: ROUTES.CATEGORY('chuong-dong') },
-      { label: 'Tượng đồng', href: ROUTES.CATEGORY('tuong-dong') },
-      { label: 'Trống đồng', href: ROUTES.CATEGORY('trong-dong') },
+      { label: 'Bộ Tam Sự', href: ROUTES.CATEGORY('bo-tam-su') },
+      { label: 'Bộ Ngũ Sự', href: ROUTES.CATEGORY('bo-ngu-su') },
+      { label: 'Đỉnh Đồng', href: ROUTES.CATEGORY('dinh-dong') },
+      { label: 'Lư Hương', href: ROUTES.CATEGORY('lu-huong') },
+      { label: 'Hạc Đồng', href: ROUTES.CATEGORY('hac-dong') },
+      { label: 'Tượng Đồng', href: ROUTES.CATEGORY('tuong-dong') },
     ],
   },
-  { label: 'Tin tức', href: ROUTES.BLOG },
-  { label: 'Đơn hàng', href: ROUTES.ORDER_TRACKING },
+  {
+    label: 'Kiến thức',
+    href: ROUTES.BLOG,
+    children: [
+      { label: 'Tất cả bài viết', href: ROUTES.BLOG },
+      { label: 'Quy trình chế tác', href: ROUTES.CRAFT_PROCESS },
+      { label: 'Hỏi đáp', href: ROUTES.FAQ },
+    ],
+  },
   { label: 'Liên hệ', href: ROUTES.CONTACT },
 ];
 
 export const FOOTER_LINKS = {
   sanPham: [
-    { label: 'Lư đồng', href: ROUTES.CATEGORY('lu-dong') },
-    { label: 'Đỉnh đồng', href: ROUTES.CATEGORY('dinh-dong') },
-    { label: 'Chuông đồng', href: ROUTES.CATEGORY('chuong-dong') },
-    { label: 'Tượng đồng', href: ROUTES.CATEGORY('tuong-dong') },
-    { label: 'Trống đồng', href: ROUTES.CATEGORY('trong-dong') },
+    { label: 'Bộ Tam Sự', href: ROUTES.CATEGORY('bo-tam-su') },
+    { label: 'Bộ Ngũ Sự', href: ROUTES.CATEGORY('bo-ngu-su') },
+    { label: 'Đỉnh Đồng', href: ROUTES.CATEGORY('dinh-dong') },
+    { label: 'Lư Hương', href: ROUTES.CATEGORY('lu-huong') },
+    { label: 'Hạc Đồng', href: ROUTES.CATEGORY('hac-dong') },
+    { label: 'Tượng Đồng', href: ROUTES.CATEGORY('tuong-dong') },
   ],
   lienKet: [
     { label: 'Giới thiệu', href: ROUTES.ABOUT },
-    { label: 'Đặt hàng', href: ROUTES.ORDER },
+    { label: 'Quy trình chế tác', href: ROUTES.CRAFT_PROCESS },
     { label: 'Tin tức', href: ROUTES.BLOG },
+    { label: 'Hỏi đáp', href: ROUTES.FAQ },
     { label: 'Liên hệ', href: ROUTES.CONTACT },
+  ],
+  chinh_sach: [
+    { label: 'Chính sách bảo mật', href: ROUTES.PRIVACY },
+    { label: 'Điều khoản sử dụng', href: ROUTES.TERMS },
+    { label: 'Tra cứu đơn hàng', href: ROUTES.ORDER_TRACKING },
   ],
 };

@@ -30,11 +30,14 @@ export default function CustomerLoginPage() {
       await login(data.email, data.password);
       toast.success('Đăng nhập thành công!');
       router.push(ROUTES.HOME);
-    } catch (error: any) {
-      if (error?.message?.includes('Email not confirmed')) {
-        toast.error('Tài khoản chưa được xác thực email. Hãy kiểm tra hộp thư của bạn hoặc liên hệ Admin.');
-      } else {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : '';
+      if (msg.includes('Email not confirmed')) {
+        toast.error('Tài khoản chưa được xác thực email. Hãy kiểm tra hộp thư của bạn.');
+      } else if (msg.includes('Invalid login credentials')) {
         toast.error('Email hoặc mật khẩu không đúng.');
+      } else {
+        toast.error('Đăng nhập thất bại. Vui lòng thử lại.');
       }
     } finally {
       setIsLoading(false);

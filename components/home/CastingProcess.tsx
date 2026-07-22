@@ -1,84 +1,157 @@
 /**
- * CastingProcess — step-by-step bronze casting process timeline.
+ * CastingProcess — 5-step craft process timeline.
+ * Đúc đồng → Đánh bóng → Kiểm tra → Đóng gói → Giao hàng
  */
 
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import SectionTitle from '@/components/common/SectionTitle';
+import { Flame, Sparkles, Search, Package, Truck } from 'lucide-react';
 
-const STEPS = [
+const PROCESS_STEPS = [
   {
-    number: '01',
-    title: 'Thiết kế mẫu',
-    description: 'Nghệ nhân phác thảo mẫu thủ công hoặc thiết kế 3D, xác định kích thước và hoa văn chi tiết.',
+    icon: Flame,
+    step: '01',
+    title: 'Đúc Đồng',
+    description:
+      'Đồng nguyên chất được nung chảy ở nhiệt độ cao, rót vào khuôn đất sét tạo hình theo mẫu thiết kế. Công đoạn này đòi hỏi kinh nghiệm và kỹ thuật cao.',
+    color: 'from-orange-500 to-red-500',
+    lightColor: 'from-orange-50 to-red-50',
   },
   {
-    number: '02',
-    title: 'Làm khuôn',
-    description: 'Chế tác khuôn đúc từ đất sét chịu nhiệt hoặc cát, đảm bảo độ chính xác cao.',
+    icon: Sparkles,
+    step: '02',
+    title: 'Đánh Bóng',
+    description:
+      'Sản phẩm sau đúc được chạm khắc, đánh bóng thủ công qua nhiều giai đoạn. Mỗi chi tiết hoa văn được nghệ nhân hoàn thiện tỉ mỉ bằng tay.',
+    color: 'from-amber-400 to-yellow-500',
+    lightColor: 'from-amber-50 to-yellow-50',
   },
   {
-    number: '03',
-    title: 'Nấu đồng',
-    description: 'Đồng nguyên liệu được nung chảy ở nhiệt độ 1.083°C, pha chế theo tỷ lệ truyền thống.',
+    icon: Search,
+    step: '03',
+    title: 'Kiểm Tra',
+    description:
+      'Mỗi sản phẩm được kiểm tra nghiêm ngặt về chất lượng đồng, độ chính xác hoa văn và hoàn thiện bề mặt. Chỉ sản phẩm đạt chuẩn mới được tiếp tục.',
+    color: 'from-emerald-500 to-teal-500',
+    lightColor: 'from-emerald-50 to-teal-50',
   },
   {
-    number: '04',
-    title: 'Đổ khuôn',
-    description: 'Đồng lỏng được đổ vào khuôn cẩn thận, để nguội tự nhiên trong điều kiện kiểm soát.',
+    icon: Package,
+    step: '04',
+    title: 'Đóng Gói',
+    description:
+      'Sản phẩm được bọc bảo vệ cẩn thận bằng vật liệu chuyên dụng, đảm bảo không trầy xước trong quá trình vận chuyển đến mọi tỉnh thành.',
+    color: 'from-blue-500 to-indigo-500',
+    lightColor: 'from-blue-50 to-indigo-50',
   },
   {
-    number: '05',
-    title: 'Hoàn thiện',
-    description: 'Tháo khuôn, đánh bóng, khắc hoa văn và xử lý bề mặt theo yêu cầu.',
-  },
-  {
-    number: '06',
-    title: 'Kiểm định',
-    description: 'Kiểm tra chất lượng toàn diện trước khi đóng gói và giao đến tay khách hàng.',
+    icon: Truck,
+    step: '05',
+    title: 'Giao Hàng',
+    description:
+      'Giao toàn quốc qua đơn vị vận chuyển uy tín. Khách hàng có thể theo dõi đơn hàng realtime. Cam kết hoàn tiền nếu sản phẩm bị hư hỏng khi nhận.',
+    color: 'from-[#B8860B] to-amber-600',
+    lightColor: 'from-amber-50 to-orange-50',
   },
 ];
 
 export default function CastingProcess() {
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
-      <div className="container">
-        <SectionTitle
-          label="Quy trình"
-          title="Quy Trình Đúc Đồng Truyền Thống"
-          subtitle="Mỗi sản phẩm đồng trải qua 6 bước thủ công tỉ mỉ, kế thừa kỹ thuật đúc đồng ngàn năm của cha ông."
-          className="mb-16"
-        />
+    <section className="py-20 md:py-32 bg-[#111111] overflow-hidden">
+      <div className="container max-w-7xl mx-auto px-4 md:px-8">
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-24">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-[#B8860B] uppercase tracking-[0.3em] text-xs font-semibold mb-4"
+          >
+            Nghề thủ công truyền thống
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-serif text-white mb-4 tracking-tight"
+          >
+            Quy Trình Chế Tác
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-white/50 text-lg font-light max-w-xl mx-auto"
+          >
+            Mỗi sản phẩm trải qua 5 giai đoạn kiểm soát chất lượng nghiêm ngặt
+          </motion.p>
+        </div>
 
+        {/* Steps */}
         <div className="relative">
           {/* Connecting line (desktop) */}
-          <div className="hidden lg:block absolute top-8 left-0 right-0 h-[2px] bg-gradient-gold opacity-30" />
+          <div className="hidden lg:block absolute top-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-            {STEPS.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative flex flex-col items-center text-center"
-              >
-                {/* Step circle */}
-                <div className="relative z-10 w-16 h-16 rounded-full bg-white border-4 border-secondary flex items-center justify-center mb-4 shadow-gold">
-                  <span className="font-serif font-bold text-lg text-gradient-gold">
-                    {step.number}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
+            {PROCESS_STEPS.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.6, delay: index * 0.12, ease: 'easeOut' }}
+                  className="relative flex flex-col items-center text-center group"
+                >
+                  {/* Step number above icon */}
+                  <span className="text-white/20 text-xs font-bold tracking-widest uppercase mb-3">
+                    Bước {step.step}
                   </span>
-                </div>
 
-                <h3 className="font-semibold text-sm text-foreground mb-2">{step.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{step.description}</p>
-              </motion.div>
-            ))}
+                  {/* Icon circle */}
+                  <div className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon size={28} className="text-white" strokeWidth={1.5} />
+                    {/* Glow */}
+                    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${step.color} blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 -z-10`} />
+                  </div>
+
+                  {/* Arrow between steps (desktop) */}
+                  {index < PROCESS_STEPS.length - 1 && (
+                    <div className="hidden lg:block absolute top-16 -right-2 text-white/20 text-lg z-10">
+                      →
+                    </div>
+                  )}
+
+                  {/* Content */}
+                  <h3 className="font-semibold text-white text-lg mb-3">{step.title}</h3>
+                  <p className="text-white/50 text-sm font-light leading-relaxed">
+                    {step.description}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-20"
+        >
+          <a
+            href="/quy-trinh-che-tac"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium border border-white/10 hover:border-white/30 px-7 py-3.5 rounded-full transition-all duration-300"
+          >
+            Xem chi tiết quy trình →
+          </a>
+        </motion.div>
       </div>
     </section>
   );

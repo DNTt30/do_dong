@@ -34,7 +34,7 @@ export default function FloatingContact() {
       >
         <Phone className="text-white w-6 h-6 animate-[wiggle_1s_ease-in-out_infinite] z-10" />
         <span className="absolute right-full mr-4 bg-white text-black text-sm px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-medium z-10">
-          {CONTACT_INFO.phoneFormatted || CONTACT_INFO.phone}
+          {CONTACT_INFO.phoneDisplay || CONTACT_INFO.phone}
         </span>
       </motion.a>
     </div>

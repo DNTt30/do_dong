@@ -23,7 +23,7 @@ export function AppProviders({ children }: AppProvidersProps) {
         closeButton
         toastOptions={{
           style: {
-            fontFamily: 'var(--font-be-vietnam-pro)',
+            fontFamily: 'var(--font-outfit)',
           },
         }}
       />

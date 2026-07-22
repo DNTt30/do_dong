@@ -4,22 +4,12 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { Loader2, UserPlus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { ROUTES } from '@/constants/routes';
-
-// Define register schema here or import from validators
-const registerSchema = z.object({
-  name: z.string().min(2, 'Tên phải có ít nhất 2 ký tự').max(50, 'Tên quá dài'),
-  phone: z.string().min(10, 'Số điện thoại không hợp lệ').max(15, 'Số điện thoại không hợp lệ'),
-  email: z.string().email('Email không hợp lệ'),
-  password: z.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
-});
-
-type RegisterSchema = z.infer<typeof registerSchema>;
+import { registerSchemaSimple as registerSchema, type RegisterSchemaSimple as RegisterSchema } from '@/utils/validators';
 
 export default function CustomerRegisterPage() {
   const router = useRouter();
@@ -40,9 +30,12 @@ export default function CustomerRegisterPage() {
       await registerUser(data.email, data.password, { name: data.name, phone: data.phone });
       toast.success('Đăng ký thành công! Hãy tiếp tục mua sắm.');
       router.push(ROUTES.HOME);
-    } catch (error: any) {
-      if (error?.message?.includes('User already registered')) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : '';
+      if (msg.includes('User already registered') || msg.includes('already been registered')) {
         toast.error('Email này đã được sử dụng.');
+      } else if (msg.includes('Password should be')) {
+        toast.error('Mật khẩu phải có ít nhất 8 ký tự gồm chữ và số.');
       } else {
         toast.error('Có lỗi xảy ra khi đăng ký. Vui lòng thử lại sau.');
       }

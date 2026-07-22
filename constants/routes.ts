@@ -16,6 +16,12 @@ export const ROUTES = {
   ORDER_TRACKING: '/tra-cuu-don-hang',
   SEARCH: '/tim-kiem',
 
+  // New pages
+  CRAFT_PROCESS: '/quy-trinh-che-tac',
+  FAQ: '/hoi-dap',
+  PRIVACY: '/chinh-sach-bao-mat',
+  TERMS: '/dieu-khoan',
+
   // Auth routes for customers
   AUTH: {
     LOGIN: '/dang-nhap',
@@ -32,6 +38,7 @@ export const ROUTES = {
     PRODUCT_NEW: '/admin/san-pham/them-moi',
     PRODUCT_EDIT: (id: string) => `/admin/san-pham/${id}`,
     CATEGORIES: '/admin/danh-muc',
+    CATEGORY_NEW: '/admin/danh-muc/them-moi',
     CATEGORY_EDIT: (id: string) => `/admin/danh-muc/${id}`,
     BLOGS: '/admin/bai-viet',
     BLOG_NEW: '/admin/bai-viet/them-moi',

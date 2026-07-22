@@ -70,5 +70,5 @@ export async function checkAdminRole(user: User): Promise<boolean> {
   // Simple check: check if user.app_metadata has admin role, or specific email.
   // We can default to checking app_metadata for 'admin' or just return true if it's the owner email.
   // This depends on how Supabase is configured.
-  return user.app_metadata?.role === 'admin' || user.email === 'admin@dodongnamdinh.vn' || user.email === 'admin123@gmail.com' || user.email === 'admin123@.com';
+  return user.app_metadata?.role === 'admin';
 }

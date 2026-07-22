@@ -5,7 +5,7 @@ import OrderTrackingClient from './OrderTrackingClient';
 export const metadata: Metadata = generatePageMetadata({
   title: 'Tra cứu đơn hàng',
   description: 'Tra cứu trạng thái và lịch sử đơn hàng của bạn tại Đồ Đồng Nam Định.',
-  url: '/tra-cuu-don-hang',
+  canonical: '/tra-cuu-don-hang',
 });
 
 export default function OrderTrackingPage() {
